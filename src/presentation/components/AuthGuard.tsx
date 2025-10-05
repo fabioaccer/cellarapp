@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../hooks/useAuth';
 
 interface AuthGuardProps {
@@ -13,6 +14,7 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
     fallback 
 }) => {
     const { user } = useAuth();
+    const navigation = useNavigation();
 
     if (user) {
         return <>{children}</>;
@@ -30,6 +32,12 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
                 <Text style={styles.subtitle}>
                     Faça login para acessar esta funcionalidade
                 </Text>
+                <TouchableOpacity 
+                    style={styles.loginButton}
+                    onPress={() => navigation.navigate('AuthStack' as never)}
+                >
+                    <Text style={styles.loginButtonText}>Fazer Login</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -61,5 +69,18 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         lineHeight: 22,
         marginBottom: 24,
+    },
+    loginButton: {
+        backgroundColor: '#7A2EFF',
+        paddingHorizontal: 32,
+        paddingVertical: 12,
+        borderRadius: 8,
+        marginTop: 16,
+    },
+    loginButtonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: '600',
+        textAlign: 'center',
     },
 });

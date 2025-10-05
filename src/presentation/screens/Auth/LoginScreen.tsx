@@ -39,6 +39,8 @@ export const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     try {
       setIsLoading(true);
       await login(data);
+      // Redireciona para a tela inicial após login bem-sucedido
+      navigation.navigate('MainStack');
     } catch (error) {
       const message =
         error instanceof AppError

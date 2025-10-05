@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getMessaging, isSupported } from 'firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
@@ -19,3 +20,19 @@ export const auth = initializeAuth(app, {
 });
 
 export const db = getFirestore(app);
+
+// Para usar FCM, descomente as linhas abaixo e configure as partes nativas
+export const initializeMessaging = async () => {
+    try {
+        const supported = await isSupported();
+        if (supported) {
+            return getMessaging(app);
+        }
+        return null;
+    } catch (error) {
+        console.log('FCM not supported in this environment:', error);
+        return null;
+    }
+};
+
+// export const messaging = initializeMessaging();

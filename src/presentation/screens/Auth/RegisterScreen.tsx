@@ -43,7 +43,8 @@ export const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) =>
             setIsLoading(true);
             await register(data);
             Alert.alert('Sucesso', 'Conta criada com sucesso!');
-            navigation.goBack();
+            // Redireciona para a tela inicial após registro bem-sucedido
+            navigation.navigate('MainStack');
         } catch (error) {
             const message =
                 error instanceof AppError
