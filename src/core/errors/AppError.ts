@@ -140,7 +140,6 @@ export class ErrorFactory {
         }
 
         if (error?.code) {
-            // Firebase errors
             if (error.code.startsWith('auth/')) {
                 return this.handleFirebaseAuthError(error);
             }
